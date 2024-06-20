@@ -14,17 +14,15 @@ public class Reparable : MonoBehaviour {
         isReparing = false;
         if (detector.target == null)
             return;
-        if (detector.target.CompareTag("Player")) {
+        if (detector.target.CompareTag("Player")) 
             isReparing = repare.action.IsPressed();
-        }
     }
 
     private void FixedUpdate() {
         if (isReparing) {
             repareTimer += 1 * Time.fixedDeltaTime;
-            if (repareTimer > 5) {
+            if (repareTimer > 5)
                 Repare();
-            }
         }
     }
 

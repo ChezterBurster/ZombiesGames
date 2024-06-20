@@ -10,6 +10,8 @@ public class HealthManager: MonoBehaviour {
         if (life <= 0) {
             if (gameObject.CompareTag("Interactable"))
                 GetComponent<Reparable>().Break();
+            if (gameObject.CompareTag("Player"))
+                GetComponent<PlayerController>().Die();
             else
                 Destroy(gameObject);
         }
@@ -19,8 +21,7 @@ public class HealthManager: MonoBehaviour {
         life -= damage;
     }
 
-    public void GetDamageOverTime(int damage)
-    {
+    public void GetDamageOverTime(int damage) {
         life -= damage * timeFactor;
     }
 }

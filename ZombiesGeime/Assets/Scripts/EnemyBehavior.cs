@@ -14,9 +14,8 @@ public class EnemyBehavior : MonoBehaviour {
     }
     
     private void OnCollisionStay(Collision other) {
-        if (other.collider.CompareTag("Player") || other.collider.CompareTag("Interactable")) {
+        if (other.collider.CompareTag("Player") || other.collider.CompareTag("Interactable")) 
             other.collider.GetComponent<HealthManager>().GetDamageOverTime(atack);
-        }
     }
 
     private void OnCollisionEnter(Collision other) {

@@ -6,23 +6,20 @@ public class BulletController : MonoBehaviour {
     public int damage = 2;
     [SerializeField] private Rigidbody rb;
 
-    private void Awake(){
+    private void Awake() {
         deathTimer = Time.time + lifeSpan;
     }
 
-    public void Shoot(){
-        rb.AddForce(transform.forward * 1000);
-    }
+    public void Shoot() => rb.AddForce(transform.forward * 1000);
 
-    private void Update(){
+    private void Update() {
         if (Time.time >= deathTimer)
             Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Enemy")){
+        if (other.CompareTag("Enemy"))
             other.GetComponent<HealthManager>().GetDamage(damage);
-        }
         if (!other.CompareTag("Interactable") && !other.CompareTag("Player"))
             Destroy(gameObject);
     }
