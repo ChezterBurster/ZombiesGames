@@ -3,6 +3,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
     private int lifeSpan = 5;
     private float deathTimer;
+    public int damage = 2;
     [SerializeField] private Rigidbody rb;
 
     private void Awake(){
@@ -15,6 +16,14 @@ public class BulletController : MonoBehaviour {
 
     private void Update(){
         if (Time.time >= deathTimer)
+            Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Enemy")){
+            other.GetComponent<HealthManager>().GetDamage(damage);
+        }
+        if (!other.CompareTag("Interactable") && !other.CompareTag("Player"))
             Destroy(gameObject);
     }
 }
