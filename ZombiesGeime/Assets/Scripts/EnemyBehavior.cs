@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour {
     public Detector detector;
     public int speed = 3;
-    public int atack = 10;
+    public int attack = 10;
 
     private void Update() {
         LookAtTarget();
@@ -15,7 +15,7 @@ public class EnemyBehavior : MonoBehaviour {
     
     private void OnCollisionStay(Collision other) {
         if (other.collider.CompareTag("Player") || other.collider.CompareTag("Interactable")) 
-            other.collider.GetComponent<HealthManager>().GetDamageOverTime(atack);
+            other.collider.GetComponent<HealthManager>().GetDamageOverTime(attack);
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -29,7 +29,11 @@ public class EnemyBehavior : MonoBehaviour {
     private void LookAtTarget() {
         if (detector.target == null)
             return;
-        Vector3 target = (Vector3)(detector.target?.transform.position);
+        if (detector.target.tag == gameObject.tag) {
+            detector.target = null;
+            return;
+        }
+        var target = (Vector3)(detector.target?.transform.position);
         var targetPos = new Vector3(target.x, 0.5f, target.z) - transform.position;
         float angle = Mathf.Atan2(targetPos.x, targetPos.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
